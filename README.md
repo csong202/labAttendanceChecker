@@ -1,4 +1,4 @@
-# Attendance Checker :heavy_check_mark:
+# Lab Attendance Checker :heavy_check_mark:
 ## What does it do?
 
 ### 1) Checks which students skipped the lab
@@ -25,7 +25,8 @@ real names.
 3) Obtain a csv file that lists all the students in the lab section 
 (see formatting guidelines). 
 
-4) Repeat step 2 but with the file of all students in the lab section.
+4) Put the csv file of all students in the lab section in the `student_files/all_students`
+directory. Ensure that this file is the *only* file in that directory.
 
 5) Run `app.py`!
 
