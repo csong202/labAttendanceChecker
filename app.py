@@ -10,7 +10,7 @@ def open_file(file_path):
 
     return open(file_path)
 
-def get_names(file):
+def get_names_from_file(file):
     '''
     (file object) => String[]
     cleans file so that only the names remain
@@ -33,7 +33,8 @@ def get_names(file):
 
 def get_full_name(full_name):
     last_first = full_name.split(",")
-    return last_first[1] + " " + last_first[0]
+    first_name = last_first[1].split(" ")[0]
+    return first_name + " " + last_first[0]
 
 def not_attended(participants):
     '''
@@ -65,8 +66,8 @@ def find_real_name(user_name):
                 if substr in real_stu:
                     if len(results) == 0 or len(substr) > int(results[-1][-1]):
                         if len(results) != 0: results.pop()
-                        results.append(real_stu + str(len(substr)))
-    match = results[-1][0:-1] if len(results) != 0  else "NO MATCH"
+                        results.append([real_stu, len(substr)])
+    match = results[-1][0] if len(results) != 0  else "NO MATCH"
     if user_name != match: print(f"{user_name} => {match}")
     return match
 
@@ -101,8 +102,8 @@ print(f"all_students_file_path: {all_students_file_path}")
 participants = open_file(participants_file_path)
 all_students_orig = open_file(all_students_file_path)
 
-part_names = get_names(participants)
-all_students = sorted(get_names(all_students_orig))
+part_names = get_names_from_file(participants)
+all_students = sorted(get_names_from_file(all_students_orig))
 
 part_names_sorted = sorted(part_names)
 
