@@ -60,15 +60,21 @@ def find_real_name(user_name):
     results = []
     n = len(user_name)
     for real_stu in all_students:
-        for i in range(n-3):
-            for j in range(i+3, n):
+        for i in range(n-2):
+            for j in range(i+3, n+1):
                 substr = user_name[i:j]
+                if " " in substr: continue
                 if substr in real_stu:
-                    if len(results) == 0 or len(substr) > int(results[-1][-1]):
-                        if len(results) != 0: results.pop()
-                        results.append([real_stu, len(substr)])
-    match = results[-1][0] if len(results) != 0  else "NO MATCH"
-    if user_name != match: print(f"{user_name} => {match}")
+                    better_match = substr in real_stu.split(" ") or real_stu.find(substr) == 0
+                    if len(results) == 0 or len(substr) > int(results[-1][1]) \
+                            or (len(substr) >= int(results[-1][1]) and better_match):
+                        if len(results) != 0 and results[-1][2]:
+                            continue
+                        results.append([real_stu, len(substr), better_match])
+
+    match = results[-1][0] if len(results) != 0 else "NO MATCH"
+    if user_name != match:
+        print(f"{user_name} => {match}")
     return match
 
 # https://www.geeksforgeeks.org/python-program-for-binary-search/
@@ -115,4 +121,3 @@ print(all_students)
 not_in_lab = not_attended(part_names_sorted)
 print("\nNOT IN LAB")
 print(not_in_lab)
-
