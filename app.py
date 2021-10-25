@@ -2,6 +2,7 @@ import re
 import os
 import glob
 
+
 def open_file(file_path):
     '''
     (String) => String
@@ -9,6 +10,7 @@ def open_file(file_path):
     '''
 
     return open(file_path)
+
 
 def get_names_from_file(file):
     '''
@@ -31,10 +33,12 @@ def get_names_from_file(file):
             student_names.append(get_full_name(split_line[2][1:len(split_line[2])-1].lower()))
     return student_names
 
+
 def get_full_name(full_name):
     last_first = full_name.split(",")
     first_name = last_first[1].split(" ")[0]
     return first_name + " " + last_first[0]
+
 
 def not_attended(participants):
     '''
@@ -53,6 +57,7 @@ def not_attended(participants):
             result.append(real_stu)
     return result
 
+
 def find_real_name(user_name):
     '''
     string => string
@@ -63,7 +68,7 @@ def find_real_name(user_name):
     for real_stu in all_students:
         if user_name == real_stu:
             return real_stu
-        for i in range(n-3):
+        for i in range(n-2):
             for j in range(i+3, n+1):
                 substr = user_name[i:j]
                 if " " in substr: continue
@@ -88,6 +93,7 @@ def find_real_name(user_name):
     if user_name != match:
         print(f"{user_name} => {match}")
     return match
+
 
 # https://www.geeksforgeeks.org/python-program-for-binary-search/
 def binary_search(arr, x):
