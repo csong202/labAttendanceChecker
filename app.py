@@ -59,18 +59,30 @@ def find_real_name(user_name):
     '''
     results = []
     n = len(user_name)
+    # print("\n"+user_name)
     for real_stu in all_students:
-        for i in range(n-2):
+        if user_name == real_stu:
+            return real_stu
+        for i in range(n-3):
             for j in range(i+3, n+1):
                 substr = user_name[i:j]
                 if " " in substr: continue
                 if substr in real_stu:
-                    better_match = substr in real_stu.split(" ") or real_stu.find(substr) == 0
+                    match_points = 0
+                    if binary_search(real_stu.split(" "), substr) != -1:
+                        match_points += 1
+                    if real_stu.find(substr) == 0:
+                        match_points += 1
+                    if binary_search(real_stu.split(" "), substr) != -1 and real_stu.find(substr) == 0:
+                        match_points += 1
                     if len(results) == 0 or len(substr) > int(results[-1][1]) \
-                            or (len(substr) >= int(results[-1][1]) and better_match):
-                        if len(results) != 0 and results[-1][2]:
+                            or (len(substr) >= int(results[-1][1]) and match_points > results[-1][2]):
+                        # print(substr)
+                        if len(results) != 0: results.pop()
+                        if len(results) != 0 and results[-1][2] == match_points:
                             continue
-                        results.append([real_stu, len(substr), better_match])
+                        results.append([real_stu, len(substr), match_points])
+                        # print(results)
 
     match = results[-1][0] if len(results) != 0 else "NO MATCH"
     if user_name != match:
