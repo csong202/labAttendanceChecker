@@ -9,6 +9,7 @@ def open_file(file_path):
     opens and reads file
     '''
 
+    # exception handling!!
     return open(file_path)
 
 
@@ -35,6 +36,11 @@ def get_names_from_file(file):
 
 
 def get_full_name(full_name):
+    '''
+    (str) -> str
+    Takes full_name in the form '"<last_name>, <first_name>"' then returns
+    the name in the form '<first_name> <last_name>'
+    '''
     last_first = full_name.split(",")
     first_name = last_first[1].split(" ")[0]
     return first_name + " " + last_first[0]
@@ -43,6 +49,8 @@ def get_full_name(full_name):
 def not_attended(participants):
     '''
     str[] => str[]
+    Compares list of participants to list of all students in the lab section
+    returns a list of the students who did not attend the lab
     '''
     result = []
 
@@ -61,6 +69,7 @@ def not_attended(participants):
 def find_real_name(user_name):
     '''
     string => string
+    Determines a student's real name based on their zoom name
     '''
     results = []
     n = len(user_name)
@@ -83,7 +92,6 @@ def find_real_name(user_name):
                     if len(results) == 0 or len(substr) > int(results[-1][1]) \
                             or (len(substr) >= int(results[-1][1]) and match_points > results[-1][2]):
                         # print(substr)
-                        if len(results) != 0: results.pop()
                         if len(results) != 0 and results[-1][2] == match_points:
                             continue
                         results.append([real_stu, len(substr), match_points])
